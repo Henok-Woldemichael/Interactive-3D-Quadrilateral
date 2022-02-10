@@ -1,0 +1,18 @@
+CC=g++
+CFLAGS=-Iinclude -std=c++11 -g
+LIBS=-lglut -lGLEW -lGL -lGLU
+# Default target executed when no arguments are given to make.
+default_target: spin-sq
+.PHONY : default_target
+
+spin-sq: spin-sq.o InitShader.o
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+
+spin-sq.o: spin-sq.cc
+	$(CC) $(CFLAGS) -c $^
+
+InitShader.o: common/InitShader.cc
+	$(CC) $(CFLAGS) -c $^
+
+clean:
+	rm -f spin-sq *~ *.o
